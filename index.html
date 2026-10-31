@@ -99,6 +99,18 @@ body{overflow-x:hidden}
 .executeBtn{border:0;border-radius:15px;background:var(--burg);color:#fff;padding:13px 30px;font-size:20px;font-weight:900;cursor:pointer}
 .executeBtn:disabled{opacity:.45;cursor:default}
 .helper{font-size:14px;color:#678;direction:rtl;margin-top:-8px;margin-bottom:12px;line-height:1.7}
+.helpLink{display:block;margin:-6px auto 10px;background:none;border:0;padding:4px 8px;font:inherit;font-size:16px;font-weight:800;color:var(--burg);text-decoration:underline;cursor:pointer}
+.helpDlg{border:0;border-radius:24px;max-width:600px;width:calc(100% - 32px);padding:24px 28px;color:var(--blue);font-family:'SimplerPro',Arial,sans-serif;box-shadow:0 20px 60px #17365e55;direction:rtl}
+.helpDlg::backdrop{background:#17365ecc}
+.helpDlg h2{margin:0 0 12px;color:var(--burg);font-size:28px;font-weight:900}
+.helpDlg h3{margin:14px 0 4px;color:var(--burg);font-size:20px}
+.helpDlg p{margin:0 0 6px;font-size:18px;line-height:1.6}
+.helpDlg .mathLtr{font-weight:700}
+.helpDlg .btns{display:flex;justify-content:center;margin-top:16px}
+.helpDlg .closeBtn{border:0;border-radius:14px;background:var(--blue);color:#fff;padding:12px 30px;font:inherit;font-size:18px;font-weight:800;cursor:pointer}
+.sub{color:var(--burg);background:#fbefd9;border-radius:5px;padding:0 .12em;box-shadow:0 0 0 1.5px #e7b976 inset}
+.resultLines{margin:6px 0 4px;font-size:19px;line-height:1.55;color:var(--blue);font-weight:800}
+.resultLines div{margin:2px 0}
 .helper strong{color:#8a6a19}
 
 .steps{max-width:850px;margin:0 auto;display:flex;flex-direction:column;gap:9px}
@@ -135,14 +147,18 @@ body{overflow-x:hidden}
 .moveCounter.over strong{color:#a36f1f}
 
 .keyboardPanel{margin-top:18px;background:#fff;border:1px solid #dce7f1;border-radius:24px;padding:14px 18px 16px;box-shadow:0 12px 28px #17365e0a}
-.keyboardTitle{font-size:18px;font-weight:800;margin-bottom:10px}
-.keyboard{display:grid;grid-template-columns:repeat(10,1fr);gap:9px;direction:ltr}
-.key{border:1px solid #d6e0ea;background:#f9fbfd;color:#17365e;border-radius:12px;min-height:52px;font-size:20px;font-weight:800;cursor:pointer;box-shadow:0 2px 5px #17365e0b}
-.key:hover{border-color:#9fb8d2;background:#fff}
-.key.action{background:#eef3f8}
-.key.confirm{background:var(--burg);color:#fff;border-color:var(--burg);grid-column:span 2}
-.key.clear{background:#eaf1fb;grid-column:span 2}
-.key.wide{grid-column:span 2}
+.keyboardTitle{font-size:18px;font-weight:800;margin:0 auto 10px;max-width:470px}
+/* מקלדת בסגנון מחשבון */
+.keyboard{display:grid;grid-template-columns:repeat(3,1fr) 14px 1fr 1fr;gap:9px;direction:ltr;max-width:470px;margin:0 auto}
+.keyboard .gap{grid-column:4}
+.key{border:1px solid #d6e0ea;background:#fff;color:#17365e;border-radius:12px;min-height:54px;font-size:22px;font-weight:800;cursor:pointer;box-shadow:0 2px 5px #17365e0b;font-family:Georgia,'Times New Roman',serif}
+.key:hover{border-color:#9fb8d2;background:#f7fbff}
+.key:focus-visible{outline:3px solid var(--burg);outline-offset:2px}
+.key.op{background:#f3f6fa;color:var(--burg)}
+.key.action{background:#eef3f8;font-family:'SimplerPro',Arial,sans-serif;font-size:18px}
+.key.var{font-style:italic}
+.keyboardPanel.idle .keyboard{opacity:.4;pointer-events:none}
+.key.confirm{background:var(--burg);color:#fff;border-color:var(--burg);grid-column:1 / -1;font-family:'SimplerPro',Arial,sans-serif;font-size:20px}
 .footerGoal{text-align:center;margin-top:12px;font-size:15px;font-weight:700;color:#56697c}
 
 .introOverlay{position:fixed;inset:0;background:#17365ed9;display:flex;align-items:center;justify-content:center;z-index:120;padding:20px}
@@ -160,7 +176,7 @@ body{overflow-x:hidden}
 .resultIcon{font-size:60px}
 .resultTitle{font-size:32px;font-weight:900;color:var(--burg);margin-top:3px}
 .resultText{font-size:18px;line-height:1.5;color:#5a6877}
-.resultGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:18px 0 20px}
+.resultGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 20px}
 .resultStat{background:#f4f7f9;border-radius:14px;padding:10px}
 .resultStat strong{display:block;font-size:25px;color:var(--blue);direction:ltr}
 .resultBtn{border:0;border-radius:14px;background:var(--blue);color:#fff;padding:12px 24px;font-size:18px;font-weight:800;cursor:pointer}
@@ -169,10 +185,9 @@ body{overflow-x:hidden}
   .resultGrid{grid-template-columns:repeat(3,1fr)}
   .topbar{grid-template-columns:250px 1fr 250px} .logo{width:138px} .title{font-size:36px} .subtitle{font-size:16px}
   .layout{grid-template-columns:230px minmax(0,1fr)} .statsPanel{padding:12px} .statValue{font-size:28px}
-  .keyboard{grid-template-columns:repeat(5,1fr)} .key.confirm,.key.clear,.key.wide{grid-column:span 1}
 }
 @media(max-width:760px){
-  .resultGrid{grid-template-columns:repeat(2,1fr)}
+  .resultGrid{grid-template-columns:repeat(3,1fr)}
   .app{padding:8px} .topbar{grid-template-columns:1fr 1fr;min-height:100px;row-gap:4px} .headerCenter{grid-column:1 / -1;grid-row:2} .logo{width:86px} .title{font-size:27px} .subtitle{font-size:13px;margin-top:3px}
   .headerActions{gap:5px} .homeBtn,.soundBtn{width:44px;height:44px} .frameBtn{width:92px;height:42px;font-size:13px} .frameBtn span{padding:0 4px} .againBtn{width:190px;height:74px}
   .progressRow{margin-bottom:10px} .progressTrack{max-width:none;width:58vw}
@@ -180,7 +195,7 @@ body{overflow-x:hidden}
   .statCard{margin:0;padding:9px 6px} .statIcon img{width:30px;height:30px} .statLabel{font-size:13px} .statValue{font-size:22px} .tipCard{display:none}
   .workPanel{padding:18px 12px;min-height:500px} .equation{font-size:45px} .instruction{font-size:18px}
   .operationRow{gap:8px} .opInput{width:170px;font-size:24px} .actionBtn{width:86px;height:42px;font-size:17px}
-  .step{font-size:24px;padding-right:45px} .solutionMain{font-size:30px} .keyboardPanel{padding:10px} .keyboard{grid-template-columns:repeat(5,1fr);gap:7px} .key{min-height:48px}
+  .step{font-size:24px;padding-right:45px} .solutionMain{font-size:30px} .keyboardPanel{padding:10px} .keyboard{gap:7px;grid-template-columns:repeat(3,1fr) 6px 1fr 1fr} .key{min-height:48px}
 }
 /* ===== תוספות למרוץ הפישוט ===== */
 .sideBtn{font:inherit;color:inherit;background:transparent;border:2px dashed transparent;border-radius:16px;padding:0 .18em;cursor:pointer;line-height:1.15}
@@ -238,7 +253,7 @@ body{overflow-x:hidden}
         <div class="statLabel">רצף ללא טעות</div>
         <div id="streak" class="statValue">0</div>
       </div>
-      <div class="tipCard">קודם מפשטים כל אגף, ורק אחר כך מבצעים פעולות על שני האגפים.</div>
+      <div class="tipCard">במרוץ הזה מתחילים תמיד בפישוט האגפים, ורק אחר כך מבצעים פעולות על שני האגפים.</div>
     </aside>
 
     <section class="mainCol">
@@ -249,24 +264,21 @@ body{overflow-x:hidden}
           <div class="efficiencyRow"><div id="moveCounter" class="stepCounter">צעדים: <strong>0</strong></div></div>
 
           <div id="simpArea">
-            <div id="simpPrompt" class="instruction">כתבו מחדש את האגף המסומן – בלי סוגריים ועם איברים דומים מכונסים</div>
+            <div id="simpPrompt" class="instruction">פתחו את הסוגריים וכנסו איברים דומים באגף המסומן</div>
             <div class="operationRow">
-              <input id="simpInput" class="opInput" autocomplete="off" inputmode="text" placeholder="2x + 6" aria-label="האגף המסומן אחרי פישוט">
+              <input id="simpInput" class="opInput" autocomplete="off" inputmode="text" placeholder="" aria-label="האגף המסומן אחרי פישוט">
               <button id="simpBtn" class="artBtn actionBtn" aria-label="החלף"><img src="assets/button_blank_rect.svg" alt=""><span>החלף</span></button>
             </div>
-            <div class="helper">אפשר בשלב אחד (<strong class="mathLtr">2x + 6</strong>) או בכמה שלבים (קודם <strong class="mathLtr">3x + 6 − x</strong>).
-              כשיש שני אגפים לפשט – לוחצים על האגף שרוצים.</div>
+            <button type="button" class="helpLink" data-help>עזרה: איך כותבים?</button>
           </div>
 
           <div id="opArea" style="display:none">
             <div class="instruction">איזו פעולה מבצעים על שני האגפים?</div>
             <div class="operationRow">
-              <input id="opInput" class="opInput" autocomplete="off" inputmode="text" placeholder="−5" aria-label="הפעולה על שני האגפים">
+              <input id="opInput" class="opInput" autocomplete="off" inputmode="text" placeholder="" aria-label="הפעולה על שני האגפים">
               <button id="executeBtn" class="artBtn actionBtn" aria-label="בצע"><img src="assets/button_blank_rect.svg" alt=""><span>בצע</span></button>
             </div>
-            <div class="helper">אפשר לכתוב למשל
-              <strong class="mathLtr">−5</strong>, <strong class="mathLtr">+3</strong>, <strong class="mathLtr">−2x</strong>, <strong class="mathLtr">:3</strong> או <strong class="mathLtr">·2</strong>
-            </div>
+            <button type="button" class="helpLink" data-help>עזרה: איך כותבים?</button>
           </div>
         </div>
 
@@ -275,11 +287,10 @@ body{overflow-x:hidden}
         <div id="nextRow" class="nextRow" aria-hidden="true">
           <div class="nextSolvedText">
             <strong>המשוואה נפתרה — הזמן נעצר</strong>
-            <span>עברו על דרך הפתרון, וכשתהיו מוכנים המשיכו.</span>
           </div>
-          <button type="button" id="nextQuestion" class="artBtn nextBtn" aria-label="לתרגיל הבא" title="לתרגיל הבא">
+          <button type="button" id="nextQuestion" class="artBtn nextBtn" aria-label="למשוואה הבאה" title="למשוואה הבאה">
             <img src="assets/button_blank_rect.svg" alt="">
-            <span><span id="nextQuestionText">לתרגיל הבא</span><span class="nextArrow" aria-hidden="true">←</span></span>
+            <span><span id="nextQuestionText">למשוואה הבאה</span><span class="nextArrow" aria-hidden="true">←</span></span>
           </button>
         </div>
         <div id="steps" class="steps"></div>
@@ -288,15 +299,19 @@ body{overflow-x:hidden}
       <div class="keyboardPanel">
         <div class="keyboardTitle">מקלדת מתמטית</div>
         <div id="keyboard" class="keyboard">
-          <button class="key" data-k="7">7</button><button class="key" data-k="8">8</button><button class="key" data-k="9">9</button>
-          <button class="key" data-k="+" aria-label="פלוס">+</button><button class="key" data-k="-" aria-label="מינוס">−</button><button class="key" data-k="·" aria-label="כפל">·</button>
-          <button class="key" data-k="/" aria-label="קו שבר">/</button><button class="key" data-k="(" aria-label="סוגר פותח">(</button><button class="key" data-k=")" aria-label="סוגר סוגר">)</button>
-          <button class="key action" data-action="back" aria-label="מחק תו">⌫</button>
-          <button class="key" data-k="4">4</button><button class="key" data-k="5">5</button><button class="key" data-k="6">6</button>
-          <button class="key" data-k=":" aria-label="חילוק">:</button><button class="key" data-k="x">x</button>
-          <button class="key clear" data-action="clear">נקה</button><button class="key confirm" data-action="confirm">אישור</button>
-          <button class="key" data-k="1">1</button><button class="key" data-k="2">2</button><button class="key" data-k="3">3</button>
-          <button class="key" data-k="0">0</button>
+          <button class="key" data-k="7">7</button><button class="key" data-k="8">8</button><button class="key" data-k="9">9</button><span class="gap"></span>
+          <button class="key op" data-k=":" aria-label="חילוק">:</button><button class="key action" data-action="back" aria-label="מחק תו">⌫</button>
+
+          <button class="key" data-k="4">4</button><button class="key" data-k="5">5</button><button class="key" data-k="6">6</button><span class="gap"></span>
+          <button class="key op" data-k="·" aria-label="כפל">·</button><button class="key op" data-k="(" aria-label="סוגר פותח">(</button>
+
+          <button class="key" data-k="1">1</button><button class="key" data-k="2">2</button><button class="key" data-k="3">3</button><span class="gap"></span>
+          <button class="key op" data-k="-" aria-label="מינוס">−</button><button class="key op" data-k=")" aria-label="סוגר סוגר">)</button>
+
+          <button class="key" data-k="0">0</button><button class="key var" data-k="x">x</button><button class="key op" data-k="/" aria-label="קו שבר">/</button><span class="gap"></span>
+          <button class="key op" data-k="+" aria-label="פלוס">+</button><button class="key action" data-action="clear">נקה</button>
+
+          <button class="key confirm" data-action="confirm">אישור</button>
         </div>
         <div class="footerGoal">המטרה: לפתור 12 משוואות ולשפר את הזמן האישי</div>
       </div>
@@ -306,17 +321,13 @@ body{overflow-x:hidden}
 
 <div id="introOverlay" class="introOverlay">
   <div class="introCard">
-    <div class="introIcon"><img src="assets/play_circle.svg" alt=""></div>
     <div class="introTitle">מרוץ הפישוט</div>
     <div class="introSub">לפני שמתחילים – כך משחקים</div>
     <ul class="introList">
-      <li>בכל משוואה יש סוגריים או איברים דומים. <strong>שלב 1 – פישוט:</strong> כותבים מחדש כל אגף שצריך פישוט. למשל, במקום
-        <strong class="mathLtr">3(x + 2) − x</strong> כותבים <strong class="mathLtr">2x + 6</strong>.</li>
-      <li>אפשר לפשט בבת אחת או בכמה שלבים. כשיש שני אגפים לפשט – לוחצים על האגף שרוצים לעבוד עליו.</li>
-      <li><strong>שלב 2 – פתרון:</strong> כותבים את הפעולה על שני האגפים, כמו במרוץ המשוואות
-        (<strong class="mathLtr">−6</strong>, <strong class="mathLtr">−2x</strong>, <strong class="mathLtr">:2</strong>).</li>
-      <li><strong>רצף</strong> (אייקון הלהבה): כמה משוואות ברצף נפתרו בלי אף טעות – גם לא בפישוט.</li>
-      <li>הזמן יתחיל רק כשתלחצו על <strong>„התחל”</strong>.</li>
+      <li><strong>שלב 1 – פישוט:</strong> פותחים סוגריים ומכנסים איברים דומים.</li>
+      <li><strong>שלב 2 – פתרון:</strong> כותבים פעולה על שני האגפים.</li>
+      <li><strong>רצף:</strong> כמה משוואות ברצף פתרתם בלי טעות.</li>
+      <li>הזמן מתחיל כשלוחצים <strong>„התחל”</strong>.</li>
     </ul>
     <button id="startRaceBtn" class="artBtn startBtn" aria-label="התחל"><img src="assets/button_start_rect.svg" alt=""></button>
     <div class="introMini">אפשר לחזור למסך הבית או לסיים את המשחק מהכפתורים למעלה.</div>
@@ -327,13 +338,11 @@ body{overflow-x:hidden}
   <div class="resultCard">
     <div class="resultIcon"><img src="assets/trophy_circle.svg" alt=""></div>
     <div id="resultTitle" class="resultTitle">סיימת את המרוץ!</div>
-    <p id="resultText" class="resultText"></p>
+    <div id="resultText" class="resultLines"></div>
     <div class="resultGrid">
       <div class="resultStat"><strong id="totalTime">00:00</strong>זמן כולל</div>
-      <div class="resultStat"><strong id="avgTime">00:00</strong>ממוצע</div>
-      <div class="resultStat"><strong id="fastestTime">00:00</strong>הכי מהיר</div>
       <div class="resultStat"><strong id="optimalCount">0</strong>בלי טעות</div>
-      <div class="resultStat"><strong id="simpMistakes">0</strong>טעויות בפישוט</div>
+      <div class="resultStat"><strong id="simpMistakes">0</strong>טעויות</div>
     </div>
     <div class="resultActions">
       <button id="again" class="artBtn againBtn" aria-label="התחל מחדש"><img src="assets/button_restart_rect.svg" alt=""></button>
@@ -341,6 +350,21 @@ body{overflow-x:hidden}
     </div>
   </div>
 </div>
+
+<dialog id="helpDlg" class="helpDlg" aria-labelledby="helpTitle">
+  <h2 id="helpTitle">עזרה – איך כותבים?</h2>
+  <h3>שלב 1 – פישוט</h3>
+  <p>כותבים מחדש את האגף המסומן: פותחים סוגריים ומכנסים איברים דומים.</p>
+  <p>אפשר בצעד אחד – <span class="mathLtr">3(x + 2) − x</span> הופך ל־<span class="mathLtr">2x + 6</span>,
+     או בכמה צעדים – קודם <span class="mathLtr">3x + 6 − x</span> ואחר כך <span class="mathLtr">2x + 6</span>.</p>
+  <p>כשיש שני אגפים לפשט – לוחצים על האגף שרוצים לעבוד עליו.</p>
+  <h3>שלב 2 – פתרון</h3>
+  <p>כותבים את הפעולה שמבצעים על שני האגפים, למשל
+     <span class="mathLtr">−5</span>, <span class="mathLtr">+3</span>, <span class="mathLtr">−2x</span>, <span class="mathLtr">:3</span> או <span class="mathLtr">·2</span>.</p>
+  <h3>מקלדת</h3>
+  <p>אם מופיעות אותיות בעברית – החליפו את שפת המקלדת לאנגלית, או השתמשו במקלדת שבמסך.</p>
+  <div class="btns"><button type="button" class="closeBtn" id="helpClose">הבנתי</button></div>
+</dialog>
 
 <script>
 (() => {
@@ -375,6 +399,16 @@ body{overflow-x:hidden}
     if(!c) return null;
     return {c,x:!!m[2],len:m[0].length,hasNum:!!m[1]};
   }
+  // ניקוי קלט: תווים שנכנסים בטעות, וזיהוי מקלדת בעברית (ס במקום x)
+  function cleanInput(raw){
+    let hebX=false, hebOther=false;
+    let s=raw.replace(/[`'"׳״;]/g,'');
+    if(/ס/.test(s)){ hebX=true; s=s.replace(/ס/g,'x'); }
+    if(/[\u0590-\u05FF]/.test(s)) hebOther=true;
+    return {s,hebX,hebOther};
+  }
+  const HEB_NOTE='שימו לב – המקלדת בעברית, ולכן ס הפך ל־x.';
+  const HEB_MSG='נראה שהמקלדת בעברית. החליפו את השפה לאנגלית, או השתמשו במקלדת שבמסך.';
   function parseSide(raw){
     let s=raw.replace(/\s+/g,'').replace(/[−–]/g,'-').replace(/[·×*⋅]/g,'').replace(/X/g,'x');
     if(!s) return null;
@@ -466,7 +500,7 @@ body{overflow-x:hidden}
 
   // הצבה בביטוי המקורי: 3(4 + 2) − 4
   function substSide(side,v){
-    const vv=v.n<0?`(${numHTML(v)})`:numHTML(v);
+    const vv=`<span class="sub">${v.n<0?`(${numHTML(v)})`:numHTML(v)}</span>`;
     const xPart=(c,head)=>{ // c·v עם סימן
       const neg=c.n<0, mag=new F(Math.abs(c.n),c.d);
       const body=mag.isOne()?vv:`${fracHTML(mag)}·${vv}`;
@@ -504,6 +538,20 @@ body{overflow-x:hidden}
     mixed:'מכנסים רק איברים דומים: איברים עם x לחוד, ומספרים לחוד.'
   };
   const sameLin=(p,q)=>p.a.eq(q.a)&&p.b.eq(q.b);
+  // האם הביטוי שווה לחלק מהפריטים באגף (כלומר, חלק מהאגף נשמט)? מחזיר את מה שחסר
+  function missingPart(side,got){
+    const n=side.length; if(n<2||n>8) return null;
+    for(let mask=1;mask<(1<<n)-1;mask++){
+      const kept=side.filter((_,i)=>mask&(1<<i));
+      if(sameLin(linOf(kept),got)){
+        const dropped=side.filter((_,i)=>!(mask&(1<<i)));
+        // סימן מפורש גם לאיבר הראשון שחסר
+        const html=sideHTML(dropped);
+        return /^[−]/.test(html)?html:'+'+html;
+      }
+    }
+    return null;
+  }
 
   // מאגר של 100 משוואות בחמש דרגות קושי (נשמרות כמחרוזות ונקראות באותו מנתח)
   const LEVELS = [
@@ -595,18 +643,28 @@ body{overflow-x:hidden}
     else { tag.className='phaseTag solve'; tag.textContent=p==='done'?'נפתר':'שלב 2: פתרון'; }
     simpInput.disabled=p!=='simplify'; q('simpBtn').disabled=p!=='simplify';
     opInput.disabled=p!=='op'; q('executeBtn').disabled=p!=='op';
+    document.querySelector('.keyboardPanel').classList.toggle('idle',p==='done');
   }
   function chooseTarget(){
     if(!isCanon(cur[target])) return;
     target=isCanon(cur.L)?'R':'L';
   }
+  // מה צריך לעשות באגף: לפתוח סוגריים, לכנס איברים דומים, או את שניהם
+  function needsOf(side){
+    const parens=parenCount(side)>0;
+    let xs=0,ns=0;
+    for(const it of side){ const list=it.t==='p'?it.inner:[it]; for(const u of list){ if(u.x) xs++; else ns++; } }
+    return {parens, like:xs>1||ns>1};
+  }
   function updateSimpPrompt(){
     const both=!isCanon(cur.L)&&!isCanon(cur.R);
-    q('simpPrompt').textContent='כתבו מחדש את האגף המסומן – בלי סוגריים ועם איברים דומים מכונסים'+(both?' (אפשר ללחוץ על האגף השני)':'');
+    const n=needsOf(cur[target]);
+    const what=n.parens&&n.like?'פתחו את הסוגריים וכנסו איברים דומים':n.parens?'פתחו את הסוגריים':'כנסו איברים דומים';
+    q('simpPrompt').textContent=what+' באגף המסומן'+(both?' (אפשר ללחוץ על האגף השני)':'');
   }
   function activeInput(){ return phase==='op'?opInput:simpInput; }
 
-  function showFeedback(kind,msg){ feedback.textContent=msg; feedback.className='feedback show '+kind; }
+  function showFeedback(kind,msg,html){ if(html) feedback.innerHTML=msg; else feedback.textContent=msg; feedback.className='feedback show '+kind; }
   function markError(isSimp){
     errors++; if(isSimp) simpErrors++;
     equationHadError=true; streak=0; streakEl.textContent='0';
@@ -617,16 +675,24 @@ body{overflow-x:hidden}
   function simplify(){
     if(!raceStarted||awaitingNext||phase!=='simplify') return;
     const side=cur[target];
-    const typed=parseSide(simpInput.value);
+    const cl=cleanInput(simpInput.value);
+    if(cl.hebOther){ showFeedback('warn',HEB_MSG); simpInput.focus(); return; }
+    const typed=parseSide(cl.s);
     if(!typed){
-      showFeedback('warn','לא זיהיתי את הביטוי. כתבו למשל 2x + 6 או 3x + 6 − x (בלי = ובלי סוגריים בתוך סוגריים).');
+      showFeedback('warn','לא זיהיתי את הביטוי. כתבו את האגף בלי סימן = (אפשר לפתוח את „עזרה”).');
       simpInput.focus(); return;
     }
     const want=linOf(side), got=linOf(typed);
     if(!sameLin(want,got)){
       markError(true);
-      const hit=errorVariants(side).find(v=>sameLin(v.lin,got));
-      showFeedback('bad','הביטוי שכתבתם לא שווה לאגף המקורי. '+(hit?ERR_MSG[hit.kind]:'נסו להציב מספר ולבדוק אם שני הביטויים נותנים אותה תוצאה.'));
+      // קודם: האם נכתב רק חלק מהאגף?
+      const miss=missingPart(side,got);
+      if(miss){
+        showFeedback('bad',`כתבתם רק חלק מהאגף. חסר: <span class="mathLtr">${miss}</span>`,true);
+        simpInput.focus(); return;
+      }
+      const kinds=[...new Set(errorVariants(side).filter(v=>sameLin(v.lin,got)).map(v=>v.kind))];
+      showFeedback('bad','הביטוי שכתבתם לא שווה לאגף המקורי. '+(kinds.length===1?ERR_MSG[kinds[0]]:'נסו להציב מספר ולבדוק אם שני הביטויים נותנים אותה תוצאה.'));
       simpInput.focus(); return;
     }
     if(complexity(typed)>=complexity(side)){
@@ -639,6 +705,7 @@ body{overflow-x:hidden}
     const label=opened&&collected?'פתיחת סוגריים וכינוס':opened?'פתיחת סוגריים':'כינוס איברים';
     cur={...cur,[target]:typed};
     simpInput.value='';
+    const hebNote=cl.hebX?' '+HEB_NOTE:'';
     if(isCanon(cur.L)&&isCanon(cur.R)){
       const l=linOf(cur.L), r=linOf(cur.R);
       state={a:l.a,b:l.b,c:r.a,d:r.b};
@@ -646,14 +713,14 @@ body{overflow-x:hidden}
       if(solved(state)){ finishQuestion(); return; }
       setPhase('op');
       renderEquation(); renderSteps();
-      showFeedback('good','מעולה! המשוואה מפושטת. עכשיו פותרים.');
+      showFeedback('good','צעד תקין. עכשיו בחרו פעולה על שני האגפים.'+hebNote);
       opInput.focus();
       return;
     }
     chooseTarget();
     lines.push({html:`${sideHTML(cur.L)} = ${sideHTML(cur.R)}`,op:`<span class="opWord">${label}</span>`});
     renderEquation(); renderSteps(); updateSimpPrompt();
-    showFeedback('good','צעד תקין.');
+    showFeedback('good','צעד תקין.'+hebNote);
     simpInput.focus();
   }
 
@@ -713,16 +780,18 @@ body{overflow-x:hidden}
   }
   function execute(){
     if(!raceStarted||awaitingNext||phase!=='op') return;
-    const op=parseOperation(opInput.value);
-    if(!op){ markError(false); showFeedback('bad','לא זיהיתי את הפעולה. נסו למשל: −5, −2x, :3 או ·2.'); return; }
+    const cl=cleanInput(opInput.value);
+    if(cl.hebOther){ showFeedback('warn',HEB_MSG); return; }
+    const op=parseOperation(cl.s);
+    if(!op){ showFeedback('warn','לא זיהיתי את הפעולה. נסו למשל: −5, −2x, :3 או ·2.'); return; }
     const next=applyOperation(state,op);
-    if(!sensible(op,next)){ markError(false); showFeedback('bad','הפעולה הזו לא מקדמת את הפתרון. נסו פעולה אחרת.'); return; }
+    if(!sensible(op,next)){ showFeedback('warn','הפעולה הזו לא מקדמת את הפתרון. נסו פעולה אחרת.'); return; }
     state=next;
     lines.push({html:equationText(state),op:operationDisplayText(op)});
     opInput.value='';
     if(solved(state)){ finishQuestion(); return; }
     renderEquation(); renderSteps();
-    showFeedback('good','צעד תקין.');
+    showFeedback('good','צעד תקין.'+(cl.hebX?' '+HEB_NOTE:''));
     opInput.focus();
   }
 
@@ -776,15 +845,15 @@ body{overflow-x:hidden}
       `<span class="m">${numHTML(Lv)} = ${numHTML(Rv)} ✓</span>`;
     q('solutionBox').innerHTML=`<div class="solutionMain">x = ${numHTML(v)}<span class="check">✓</span></div>`+
       `<div class="solutionMeta">נכון! פתרתם ב־${movesUsed} ${movesUsed===1?'צעד':'צעדים'} · זמן: ${fmtPrecise(sec)}</div>`+
-      `<div class="solutionCheck">בדיקה – מציבים <span class="m">x = ${numHTML(v)}</span> במשוואה המקורית:<br>${checkLine}</div>`;
+      `<div class="solutionCheck">בדיקה – מציבים <span class="m">x = <span class="sub">${numHTML(v)}</span></span> במשוואה המקורית:<br>${checkLine}</div>`;
     q('solutionBox').className='solutionBox show';
     feedback.className='feedback';
     playSound('correct');
     awaitingNext=true;
     q('nextRow').classList.add('visible'); q('nextRow').setAttribute('aria-hidden','false');
     const isLast=idx+1>=TOTAL;
-    q('nextQuestionText').textContent=isLast?'לסיכום המשחק':'לתרגיל הבא';
-    q('nextQuestion').setAttribute('aria-label',isLast?'לסיכום המשחק':'לתרגיל הבא');
+    q('nextQuestionText').textContent=isLast?'לסיכום המשחק':'למשוואה הבאה';
+    q('nextQuestion').setAttribute('aria-label',isLast?'לסיכום המשחק':'למשוואה הבאה');
     requestAnimationFrame(()=>{ q('nextRow').scrollIntoView({behavior:'smooth',block:'center'}); setTimeout(()=>q('nextQuestion').focus({preventScroll:true}),180); });
   }
 
@@ -803,13 +872,11 @@ body{overflow-x:hidden}
     else if(avg<bestAverage){ comparison=`שיפרת את הממוצע האישי שלך ב־${(bestAverage-avg).toFixed(1)} שניות למשוואה!`; bestAverage=avg; store.set('prismindSimplifyAvg',String(avg)); }
     else comparison=`השיא האישי בממוצע הוא ${fmtPrecise(bestAverage)} למשוואה.`;
     q('totalTime').textContent=fmtTime(total);
-    q('avgTime').textContent=completed?fmtPrecise(avg).replace(' שנ׳','s'):'—';
-    q('fastestTime').textContent=completed?fmtPrecise(fastest).replace(' שנ׳','s'):'—';
     q('optimalCount').textContent=`${optimalCount}/${completed}`;
-    q('simpMistakes').textContent=simpErrors;
+    q('simpMistakes').textContent=errors;
     q('resultTitle').textContent=completed===TOTAL?(errors===0?'מרוץ מושלם!':'סיימת את המרוץ!'):'סיימת את המשחק';
-    const simpLine=errors?`${simpErrors} מתוך ${errors} הטעויות היו בשלב הפישוט.`:'';
-    q('resultText').textContent=`פתרת ${completed} מתוך ${TOTAL} משוואות. ${optimalCount} מהן נפתרו בלי אף טעות. ${simpLine} רצף השיא: ${bestStreak}. ${comparison}`.replace(/\s+/g,' ');
+    q('resultText').innerHTML=[`פתרת ${completed} מתוך ${TOTAL} משוואות.`,`רצף השיא: ${bestStreak}.`,comparison]
+      .map(t=>`<div>${t}</div>`).join('');
     q('overlay').classList.add('show');
     if(completed===TOTAL) playSound('finish');
   }
@@ -855,6 +922,9 @@ body{overflow-x:hidden}
     target=b.dataset.side; renderEquation(); simpInput.focus();
   });
   q('simpBtn').addEventListener('click',simplify);
+  const helpDlg=q('helpDlg');
+  document.querySelectorAll('[data-help]').forEach(b=>b.addEventListener('click',()=>{ if(helpDlg.showModal) helpDlg.showModal(); else helpDlg.setAttribute('open',''); }));
+  q('helpClose').addEventListener('click',()=>helpDlg.close());
   simpInput.addEventListener('keydown',e=>{ if(e.key==='Enter') simplify(); });
   q('executeBtn').addEventListener('click',execute);
   opInput.addEventListener('keydown',e=>{ if(e.key==='Enter') execute(); });
